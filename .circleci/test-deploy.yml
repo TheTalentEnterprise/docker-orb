@@ -43,7 +43,7 @@ filters: &filters
 
 orbs:
   build-tools: circleci/build-tools@3.0.0
-  docker: circleci/docker@dev:<<pipeline.git.revision>>
+  docker: tte/docker@dev:<<pipeline.git.revision>>
   jq: circleci/jq@2.2.0
   node: circleci/node@4.7.0
   orb-tools: circleci/orb-tools@11.1
@@ -169,7 +169,7 @@ jobs:
       - setup_remote_docker
       - docker/build:
           dockerfile: test.Dockerfile
-          image: cpeorbtesting/docker-orb-test
+          image: talententerprise/docker-orb-test
           tag: $CIRCLE_BUILD_NUM-$CIRCLE_SHA1
           attach-at: "./"
       - run:
@@ -192,7 +192,7 @@ jobs:
       - setup_remote_docker
       - docker/build:
           dockerfile: test3.Dockerfile
-          image: cpeorbtesting/docker-orb-test
+          image: talententerprise/docker-orb-test
           tag: $CIRCLE_BUILD_NUM-$CIRCLE_SHA1
           extra_build_args: --build-arg COMMIT_HASH=$CIRCLE_SHA1
   test-dockerlint:
@@ -344,7 +344,7 @@ workflows:
           name: publish-machine
           context: CPE-orb-docker-testing
           dockerfile: test.Dockerfile
-          image: cpeorbtesting/docker-orb-test
+          image: talententerprise/docker-orb-test
           tag: $CIRCLE_BUILD_NUM-$CIRCLE_SHA1
           docker-username: DOCKER_USER
           docker-password: DOCKER_PASS
@@ -360,7 +360,7 @@ workflows:
           context: CPE-orb-docker-testing
           use-remote-docker: true
           dockerfile: test.Dockerfile
-          image: cpeorbtesting/docker-orb-test
+          image: talententerprise/docker-orb-test
           tag: $CIRCLE_SHA1
           docker-username: DOCKER_USER
           docker-password: DOCKER_PASS
@@ -374,7 +374,7 @@ workflows:
           remote-docker-version: "20.10.12"
           use-buildkit: true
           dockerfile: test.Dockerfile
-          image: cpeorbtesting/docker-orb-test
+          image: talententerprise/docker-orb-test
           tag: $CIRCLE_SHA1
           docker-username: DOCKER_USER
           docker-password: DOCKER_PASS
@@ -388,9 +388,9 @@ workflows:
           context: CPE-orb-docker-testing
           use-remote-docker: true
           dockerfile: test.Dockerfile
-          image: cpeorbtesting/docker-orb-test
+          image: talententerprise/docker-orb-test
           tag: $CIRCLE_SHA1
-          cache_from: cpeorbtesting/docker-orb-test:$CIRCLE_SHA1
+          cache_from: talententerprise/docker-orb-test:$CIRCLE_SHA1
           docker-username: DOCKER_USER
           docker-password: DOCKER_PASS
           pre-steps:
@@ -405,9 +405,9 @@ workflows:
           context: CPE-orb-docker-testing
           use-remote-docker: true
           dockerfile: test.Dockerfile
-          image: cpeorbtesting/docker-orb-test
+          image: talententerprise/docker-orb-test
           tag: $CIRCLE_SHA1-2
-          cache_from: cpeorbtesting/docker-orb-test:not-exists
+          cache_from: talententerprise/docker-orb-test:not-exists
           docker-username: DOCKER_USER
           docker-password: DOCKER_PASS
           filters: *filters
@@ -417,9 +417,9 @@ workflows:
           context: CPE-orb-docker-testing
           use-remote-docker: true
           dockerfile: test.Dockerfile
-          image: cpeorbtesting/docker-orb-test
+          image: talententerprise/docker-orb-test
           tag: $CIRCLE_SHA1
-          cache_from: cpeorbtesting/docker-orb-test:$CIRCLE_SHA1
+          cache_from: talententerprise/docker-orb-test:$CIRCLE_SHA1
           docker-username: DOCKER_USER
           docker-password: DOCKER_PASS
           update-description: true
@@ -430,7 +430,7 @@ workflows:
           context: CPE-orb-docker-testing
           use-remote-docker: true
           dockerfile: test.Dockerfile
-          image: cpeorbtesting/docker-orb-test
+          image: talententerprise/docker-orb-test
           tag: $CIRCLE_SHA1,$CIRCLE_BUILD_NUM
           docker-username: DOCKER_USER
           docker-password: DOCKER_PASS
@@ -438,7 +438,7 @@ workflows:
           filters: *filters
       - docker/publish:
           pre-steps:
-            - run: echo 'export DOCKER_USERNAME=cpeorbtesting' >> $BASH_ENV
+            - run: echo 'export DOCKER_USERNAME=talententerprise' >> $BASH_ENV
             - run: echo 'export DOCKER_NAME=docker-orb-test' >> $BASH_ENV
           name: publish-docker-env-var-image-param
           executor: docker-latest
