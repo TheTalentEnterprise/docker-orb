@@ -75,7 +75,7 @@ old_ifs="$IFS"
 IFS=' '
 
 set -x
-docker build "${build_args[*]}"
+docker build ${build_args[*]}
 set +x
 
 IFS="$old_ifs"
